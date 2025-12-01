@@ -17,4 +17,4 @@ Admin Panels - Tests 150+ common admin panel locations (phpMyAdmin, Adminer, etc
 Directory Listings - Detects exposed directories and automatically follows file links
 Database Ports - Scans 30+ ports across 14 database services with banner grabbing
 GraphQL - Tests for GraphQL introspection vulnerabilities
-API Endpoints - Identifies exposed API endpoints and configuration files
+API Endpoints - Identifies exposed API endpoints and configuration files.
