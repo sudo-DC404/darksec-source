@@ -22,3 +22,7 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# admin panel - keep private
+src/pages/secure-panel-*/
+ADMIN_SETUP.md
