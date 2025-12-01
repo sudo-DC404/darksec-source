@@ -1,0 +1,340 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+// Example tools - you can later move this to a content collection or database
+const tools = [
+  {
+    name: "Port Scanner Pro",
+    description: "Fast and efficient port scanner with advanced features including service detection and banner grabbing",
+    author: "DarkSec Team",
+    language: "Python",
+    category: "Network",
+    github: "#",
+    date: "2024-11-30"
+  },
+  {
+    name: "Web Vulnerability Scanner",
+    description: "Automated web application security scanner detecting XSS, SQL injection, and CSRF vulnerabilities",
+    author: "DarkSec Team",
+    language: "Python",
+    category: "Web Security",
+    github: "#",
+    date: "2024-11-25"
+  },
+  {
+    name: "Password Strength Analyzer",
+    description: "Analyze password strength and generate secure passwords using cryptographic best practices",
+    author: "DarkSec Team",
+    language: "JavaScript",
+    category: "Cryptography",
+    github: "#",
+    date: "2024-11-20"
+  }
+];
+
+const categories = [...new Set(tools.map(tool => tool.category))];
+---
+
+<BaseLayout title="Security Tools - DarkSec" description="Custom pentesting tools and security utilities built by our team">
+  <div class="tools-container">
+    <div class="container">
+      <header class="tools-header">
+        <h1>Security Tools & Utilities</h1>
+        <p>Custom pentesting tools built by our community</p>
+        <a href="#submit-tool" class="btn btn-primary">Submit Your Tool</a>
+      </header>
+
+      <div class="categories">
+        <button class="category-btn active" data-category="all">All Tools</button>
+        {categories.map(category => (
+          <button class="category-btn" data-category={category}>{category}</button>
+        ))}
+      </div>
+
+      <div class="tools-grid">
+        {tools.map((tool) => (
+          <article class="tool-card" data-category={tool.category}>
+            <div class="tool-header">
+              <h2>{tool.name}</h2>
+              <span class="language-badge">{tool.language}</span>
+            </div>
+            <p class="description">{tool.description}</p>
+            <div class="tool-meta">
+              <span class="category">{tool.category}</span>
+              <span class="author">by {tool.author}</span>
+              <span class="date">{tool.date}</span>
+            </div>
+            <div class="tool-actions">
+              <a href={tool.github} class="btn-link" target="_blank" rel="noopener noreferrer">
+                View on GitHub →
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <section class="submit-section" id="submit-tool">
+        <h2>Submit Your Tool</h2>
+        <p>Have a pentesting tool you'd like to share? We'd love to feature it!</p>
+        <div class="submit-info">
+          <h3>How to Submit:</h3>
+          <ol>
+            <li>Fork our <a href="https://github.com/sudo-DC404/darksec-source">GitHub repository</a></li>
+            <li>Add your tool information to the tools array in <code>src/pages/tools.astro</code></li>
+            <li>Include a clear description and link to your tool's repository</li>
+            <li>Submit a pull request with your changes</li>
+          </ol>
+          <p class="note">
+            <strong>Note:</strong> All submitted tools must be for educational and authorized testing purposes only.
+            Tools designed for malicious activities will not be accepted.
+          </p>
+        </div>
+      </section>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .tools-container {
+    padding: 3rem 0;
+  }
+
+  .tools-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .tools-header h1 {
+    font-size: 3rem;
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+
+  .tools-header p {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+  }
+
+  .btn {
+    padding: 0.875rem 2rem;
+    border-radius: 6px;
+    font-weight: 600;
+    transition: all 0.3s;
+    display: inline-block;
+    border: none;
+    cursor: pointer;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: var(--bg-primary);
+  }
+
+  .btn-primary:hover {
+    background: var(--accent-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0, 255, 136, 0.3);
+  }
+
+  .categories {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .category-btn {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+    padding: 0.5rem 1.5rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .category-btn:hover,
+  .category-btn.active {
+    background: var(--accent);
+    color: var(--bg-primary);
+    border-color: var(--accent);
+  }
+
+  .tools-grid {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    margin-bottom: 4rem;
+  }
+
+  .tool-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 2rem;
+    transition: all 0.3s;
+  }
+
+  .tool-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent);
+    box-shadow: 0 10px 30px rgba(0, 255, 136, 0.2);
+  }
+
+  .tool-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+  }
+
+  .tool-header h2 {
+    font-size: 1.5rem;
+    color: var(--text-primary);
+    margin: 0;
+  }
+
+  .language-badge {
+    background: var(--bg-tertiary);
+    color: var(--accent);
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    border: 1px solid var(--border);
+  }
+
+  .description {
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+  }
+
+  .tool-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+  }
+
+  .category {
+    background: var(--bg-tertiary);
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+  }
+
+  .tool-actions {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .btn-link {
+    color: var(--accent);
+    font-weight: 600;
+    transition: all 0.3s;
+  }
+
+  .btn-link:hover {
+    color: var(--accent-dark);
+  }
+
+  .submit-section {
+    background: var(--bg-secondary);
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    padding: 3rem;
+    margin-top: 4rem;
+  }
+
+  .submit-section h2 {
+    font-size: 2rem;
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+
+  .submit-section p {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+  }
+
+  .submit-info h3 {
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+
+  .submit-info ol {
+    margin-bottom: 2rem;
+    padding-left: 2rem;
+  }
+
+  .submit-info li {
+    margin-bottom: 0.75rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  .submit-info code {
+    background: var(--bg-tertiary);
+    padding: 0.2rem 0.4rem;
+    border-radius: 3px;
+    font-family: 'Courier New', monospace;
+    color: var(--accent);
+  }
+
+  .note {
+    background: var(--bg-tertiary);
+    border-left: 4px solid var(--accent);
+    padding: 1rem;
+    border-radius: 4px;
+    margin-top: 1rem;
+  }
+
+  .note strong {
+    color: var(--accent);
+  }
+
+  @media (max-width: 768px) {
+    .tools-header h1 {
+      font-size: 2rem;
+    }
+
+    .tools-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .submit-section {
+      padding: 2rem 1rem;
+    }
+  }
+</style>
+
+<script>
+  // Category filtering
+  document.addEventListener('DOMContentLoaded', () => {
+    const categoryBtns = document.querySelectorAll('.category-btn');
+    const toolCards = document.querySelectorAll('.tool-card');
+
+    categoryBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const category = btn.dataset.category;
+
+        // Update active button
+        categoryBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        // Filter tools
+        toolCards.forEach(card => {
+          if (category === 'all' || card.dataset.category === category) {
+            card.style.display = 'block';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+  });
+</script>

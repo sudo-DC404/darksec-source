@@ -1,0 +1,107 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = "Pentesting tutorials, tools, and security research" } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+    <link rel="stylesheet" href="/src/styles/global.css" />
+  </head>
+  <body>
+    <nav>
+      <div class="container">
+        <div class="nav-content">
+          <a href="/" class="logo">DarkSec</a>
+          <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/blog">Blog</a>
+            <a href="/tools">Tools</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer>
+      <div class="container">
+        <p>&copy; 2024 DarkSec. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <style>
+      nav {
+        background: var(--bg-secondary);
+        border-bottom: 2px solid var(--accent);
+        padding: 1rem 0;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+
+      .nav-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: var(--accent);
+        text-shadow: 0 0 10px var(--accent);
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 2rem;
+      }
+
+      .nav-links a {
+        font-weight: 500;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        transition: all 0.3s;
+      }
+
+      .nav-links a:hover {
+        background: var(--bg-tertiary);
+      }
+
+      main {
+        min-height: calc(100vh - 200px);
+      }
+
+      footer {
+        background: var(--bg-secondary);
+        border-top: 1px solid var(--border);
+        padding: 2rem 0;
+        margin-top: 4rem;
+        text-align: center;
+      }
+
+      @media (max-width: 768px) {
+        .nav-links {
+          gap: 1rem;
+        }
+
+        .nav-links a {
+          padding: 0.5rem;
+        }
+      }
+    </style>
+  </body>
+</html>
