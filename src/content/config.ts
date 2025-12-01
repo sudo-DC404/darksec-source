@@ -11,4 +11,17 @@ const blog = defineCollection({
   }),
 });
 
-export const collections = { blog };
+const tools = defineCollection({
+  type: 'content',
+  schema: z.object({
+    name: z.string(),
+    description: z.string(),
+    author: z.string().default('DarkSec Team'),
+    language: z.string(),
+    category: z.string(),
+    github: z.string(),
+    date: z.coerce.date(),
+  }),
+});
+
+export const collections = { blog, tools };

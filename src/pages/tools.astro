@@ -1,38 +1,11 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-// Example tools - you can later move this to a content collection or database
-const tools = [
-  {
-    name: "Port Scanner Pro",
-    description: "Fast and efficient port scanner with advanced features including service detection and banner grabbing",
-    author: "DarkSec Team",
-    language: "Python",
-    category: "Network",
-    github: "#",
-    date: "2024-11-30"
-  },
-  {
-    name: "Web Vulnerability Scanner",
-    description: "Automated web application security scanner detecting XSS, SQL injection, and CSRF vulnerabilities",
-    author: "DarkSec Team",
-    language: "Python",
-    category: "Web Security",
-    github: "#",
-    date: "2024-11-25"
-  },
-  {
-    name: "Password Strength Analyzer",
-    description: "Analyze password strength and generate secure passwords using cryptographic best practices",
-    author: "DarkSec Team",
-    language: "JavaScript",
-    category: "Cryptography",
-    github: "#",
-    date: "2024-11-20"
-  }
-];
+const allTools = await getCollection('tools');
+const sortedTools = allTools.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
-const categories = [...new Set(tools.map(tool => tool.category))];
+const categories = [...new Set(sortedTools.map(tool => tool.data.category))];
 ---
 
 <BaseLayout title="Security Tools - DarkSec" description="Custom pentesting tools and security utilities built by our team">
@@ -52,20 +25,20 @@ const categories = [...new Set(tools.map(tool => tool.category))];
       </div>
 
       <div class="tools-grid">
-        {tools.map((tool) => (
-          <article class="tool-card" data-category={tool.category}>
+        {sortedTools.map((tool) => (
+          <article class="tool-card" data-category={tool.data.category}>
             <div class="tool-header">
-              <h2>{tool.name}</h2>
-              <span class="language-badge">{tool.language}</span>
+              <h2>{tool.data.name}</h2>
+              <span class="language-badge">{tool.data.language}</span>
             </div>
-            <p class="description">{tool.description}</p>
+            <p class="description">{tool.data.description}</p>
             <div class="tool-meta">
-              <span class="category">{tool.category}</span>
-              <span class="author">by {tool.author}</span>
-              <span class="date">{tool.date}</span>
+              <span class="category">{tool.data.category}</span>
+              <span class="author">by {tool.data.author}</span>
+              <span class="date">{tool.data.date.toLocaleDateString()}</span>
             </div>
             <div class="tool-actions">
-              <a href={tool.github} class="btn-link" target="_blank" rel="noopener noreferrer">
+              <a href={tool.data.github} class="btn-link" target="_blank" rel="noopener noreferrer">
                 View on GitHub →
               </a>
             </div>
@@ -79,10 +52,11 @@ const categories = [...new Set(tools.map(tool => tool.category))];
         <div class="submit-info">
           <h3>How to Submit:</h3>
           <ol>
-            <li>Fork our <a href="https://github.com/sudo-DC404/darksec-source">GitHub repository</a></li>
-            <li>Add your tool information to the tools array in <code>src/pages/tools.astro</code></li>
-            <li>Include a clear description and link to your tool's repository</li>
-            <li>Submit a pull request with your changes</li>
+            <li><strong>Team Members:</strong> Clone the repo and run <code>./scripts/new-tool.sh</code></li>
+            <li><strong>Contributors:</strong> Fork our <a href="https://github.com/sudo-DC404/darksec-source">GitHub repository</a></li>
+            <li>Add your tool as a markdown file in <code>src/content/tools/</code></li>
+            <li>Commit and push your changes</li>
+            <li>Submit a pull request</li>
           </ol>
           <p class="note">
             <strong>Note:</strong> All submitted tools must be for educational and authorized testing purposes only.
