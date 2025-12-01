@@ -24,9 +24,10 @@ const { title, description = "Pentesting tutorials, tools, and security research
         <div class="nav-content">
           <a href="/" class="logo">DarkSec</a>
           <div class="nav-links">
-            <a href="/">Home</a>
-            <a href="/blog">Blog</a>
-            <a href="/tools">Tools</a>
+            <a href="/">[HOME]</a>
+            <a href="/blog">[BLOG]</a>
+            <a href="/tools">[TOOLS]</a>
+            <a href="/admin">[ADMIN]</a>
           </div>
         </div>
       </div>
@@ -62,23 +63,32 @@ const { title, description = "Pentesting tutorials, tools, and security research
         font-size: 1.5rem;
         font-weight: bold;
         color: var(--accent);
-        text-shadow: 0 0 10px var(--accent);
+        text-shadow: 0 0 10px var(--glow), 0 0 20px var(--glow);
+        animation: textGlow 2s ease-in-out infinite;
+      }
+
+      .logo::before {
+        content: '> ';
+        color: var(--accent-alt);
       }
 
       .nav-links {
         display: flex;
-        gap: 2rem;
+        gap: 1rem;
       }
 
       .nav-links a {
-        font-weight: 500;
+        font-weight: bold;
         padding: 0.5rem 1rem;
-        border-radius: 4px;
+        border: 1px solid var(--border);
         transition: all 0.3s;
+        background: var(--bg-primary);
       }
 
       .nav-links a:hover {
-        background: var(--bg-tertiary);
+        background: var(--accent);
+        color: var(--bg-primary);
+        box-shadow: 0 0 15px var(--glow);
       }
 
       main {

@@ -1,0 +1,519 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Admin Panel - DarkSec">
+  <div class="admin-container">
+    <div class="container">
+      <!-- Login Screen -->
+      <div id="login-screen" class="terminal-window">
+        <div class="terminal-header">
+          <span class="terminal-title">[DARKSEC SECURE LOGIN]</span>
+        </div>
+        <div class="terminal-body">
+          <pre class="ascii-art">
+██████╗  █████╗ ██████╗ ██╗  ██╗███████╗███████╗ ██████╗
+██╔══██╗██╔══██╗██╔══██╗██║ ██╔╝██╔════╝██╔════╝██╔════╝
+██║  ██║███████║██████╔╝█████╔╝ ███████╗█████╗  ██║
+██║  ██║██╔══██║██╔══██╗██╔═██╗ ╚════██║██╔══╝  ██║
+██████╔╝██║  ██║██║  ██║██║  ██╗███████║███████╗╚██████╗
+╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚══════╝ ╚═════╝
+          </pre>
+          <p class="terminal-prompt">ADMIN ACCESS CONTROL SYSTEM v2.1</p>
+          <p class="terminal-prompt">Enter authorization code to proceed...</p>
+
+          <form id="login-form">
+            <div class="input-group">
+              <label for="password">&gt; PASSWORD:</label>
+              <input type="password" id="password" name="password" autocomplete="off" required>
+            </div>
+            <button type="submit" class="terminal-btn">[ ACCESS ]</button>
+          </form>
+          <p id="login-error" class="error-msg"></p>
+        </div>
+      </div>
+
+      <!-- Admin Dashboard -->
+      <div id="admin-dashboard" style="display: none;">
+        <div class="terminal-window">
+          <div class="terminal-header">
+            <span class="terminal-title">[DARKSEC ADMIN PANEL]</span>
+            <button id="logout-btn" class="logout-btn">[ LOGOUT ]</button>
+          </div>
+          <div class="terminal-body">
+            <p class="terminal-prompt">ACCESS GRANTED. WELCOME, ADMIN.</p>
+            <p class="terminal-prompt">SELECT OPERATION:</p>
+
+            <div class="admin-menu">
+              <button class="menu-btn" data-action="new-blog">
+                <span class="menu-icon">[+]</span> NEW BLOG POST
+              </button>
+              <button class="menu-btn" data-action="new-tool">
+                <span class="menu-icon">[+]</span> NEW TOOL
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- New Blog Post Form -->
+        <div id="blog-form" class="form-container" style="display: none;">
+          <div class="terminal-window">
+            <div class="terminal-header">
+              <span class="terminal-title">[CREATE BLOG POST]</span>
+              <button class="close-btn" data-close="blog-form">[ X ]</button>
+            </div>
+            <div class="terminal-body">
+              <form id="create-blog-form">
+                <div class="form-group">
+                  <label>&gt; TITLE:</label>
+                  <input type="text" name="title" required>
+                </div>
+                <div class="form-group">
+                  <label>&gt; DESCRIPTION:</label>
+                  <input type="text" name="description" required>
+                </div>
+                <div class="form-group">
+                  <label>&gt; AUTHOR:</label>
+                  <input type="text" name="author" value="DarkSec Team">
+                </div>
+                <div class="form-group">
+                  <label>&gt; TAGS (comma separated):</label>
+                  <input type="text" name="tags" placeholder="pentesting, tutorial, web-security">
+                </div>
+                <div class="form-group">
+                  <label>&gt; CONTENT:</label>
+                  <textarea name="content" rows="15" required placeholder="Write your blog post content here..."></textarea>
+                </div>
+                <button type="submit" class="terminal-btn">[ GENERATE FILE ]</button>
+              </form>
+              <div id="blog-output" class="output-box" style="display: none;">
+                <p class="success-msg">FILE GENERATED SUCCESSFULLY</p>
+                <p>Copy the content below and save it as a .md file:</p>
+                <pre id="blog-content" class="code-output"></pre>
+                <button class="terminal-btn" id="download-blog">[ DOWNLOAD FILE ]</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- New Tool Form -->
+        <div id="tool-form" class="form-container" style="display: none;">
+          <div class="terminal-window">
+            <div class="terminal-header">
+              <span class="terminal-title">[CREATE TOOL ENTRY]</span>
+              <button class="close-btn" data-close="tool-form">[ X ]</button>
+            </div>
+            <div class="terminal-body">
+              <form id="create-tool-form">
+                <div class="form-group">
+                  <label>&gt; TOOL NAME:</label>
+                  <input type="text" name="name" required>
+                </div>
+                <div class="form-group">
+                  <label>&gt; DESCRIPTION:</label>
+                  <input type="text" name="description" required>
+                </div>
+                <div class="form-group">
+                  <label>&gt; AUTHOR:</label>
+                  <input type="text" name="author" value="DarkSec Team">
+                </div>
+                <div class="form-group">
+                  <label>&gt; LANGUAGE:</label>
+                  <select name="language">
+                    <option>Python</option>
+                    <option>JavaScript</option>
+                    <option>Go</option>
+                    <option>Rust</option>
+                    <option>C/C++</option>
+                    <option>Bash</option>
+                    <option>PowerShell</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>&gt; CATEGORY:</label>
+                  <select name="category">
+                    <option>Network</option>
+                    <option>Web Security</option>
+                    <option>Cryptography</option>
+                    <option>Forensics</option>
+                    <option>Exploitation</option>
+                    <option>Reconnaissance</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>&gt; GITHUB URL:</label>
+                  <input type="url" name="github" required>
+                </div>
+                <div class="form-group">
+                  <label>&gt; DETAILS:</label>
+                  <textarea name="details" rows="10" placeholder="Features, installation, usage instructions..."></textarea>
+                </div>
+                <button type="submit" class="terminal-btn">[ GENERATE FILE ]</button>
+              </form>
+              <div id="tool-output" class="output-box" style="display: none;">
+                <p class="success-msg">FILE GENERATED SUCCESSFULLY</p>
+                <p>Copy the content below and save it as a .md file:</p>
+                <pre id="tool-content" class="code-output"></pre>
+                <button class="terminal-btn" id="download-tool">[ DOWNLOAD FILE ]</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .admin-container {
+    padding: 2rem 0;
+    min-height: 80vh;
+  }
+
+  .terminal-window {
+    background: var(--bg-secondary);
+    border: 2px solid var(--border);
+    margin-bottom: 2rem;
+    box-shadow: 0 0 20px var(--glow);
+  }
+
+  .terminal-header {
+    background: var(--bg-tertiary);
+    border-bottom: 2px solid var(--border);
+    padding: 0.75rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .terminal-title {
+    color: var(--accent);
+    font-weight: bold;
+    text-shadow: 0 0 10px var(--glow);
+  }
+
+  .terminal-body {
+    padding: 2rem;
+  }
+
+  .ascii-art {
+    color: var(--accent);
+    font-size: 0.6rem;
+    margin-bottom: 2rem;
+    text-shadow: 0 0 5px var(--glow);
+    overflow-x: auto;
+  }
+
+  .terminal-prompt {
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+
+  .input-group {
+    margin-bottom: 1.5rem;
+  }
+
+  .input-group label {
+    display: block;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+
+  .input-group input {
+    width: 100%;
+    max-width: 400px;
+    background: var(--bg-primary);
+    border: 2px solid var(--border);
+    color: var(--text-primary);
+    padding: 0.75rem;
+    font-family: 'Courier New', monospace;
+  }
+
+  .input-group input:focus {
+    outline: none;
+    box-shadow: 0 0 15px var(--glow);
+  }
+
+  .terminal-btn {
+    background: transparent;
+    border: 2px solid var(--accent);
+    color: var(--accent);
+    padding: 0.75rem 2rem;
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-top: 1rem;
+  }
+
+  .terminal-btn:hover {
+    background: var(--accent);
+    color: var(--bg-primary);
+    box-shadow: 0 0 20px var(--glow);
+  }
+
+  .error-msg {
+    color: var(--danger);
+    margin-top: 1rem;
+    display: none;
+  }
+
+  .error-msg.show {
+    display: block;
+  }
+
+  .admin-menu {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .menu-btn {
+    background: var(--bg-tertiary);
+    border: 2px solid var(--border);
+    color: var(--accent);
+    padding: 2rem;
+    font-family: 'Courier New', monospace;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-align: left;
+  }
+
+  .menu-btn:hover {
+    background: var(--bg-primary);
+    box-shadow: 0 0 20px var(--glow);
+    transform: translateY(-2px);
+  }
+
+  .menu-icon {
+    color: var(--accent-alt);
+    margin-right: 0.5rem;
+  }
+
+  .logout-btn, .close-btn {
+    background: transparent;
+    border: 1px solid var(--danger);
+    color: var(--danger);
+    padding: 0.5rem 1rem;
+    font-family: 'Courier New', monospace;
+    cursor: pointer;
+  }
+
+  .logout-btn:hover, .close-btn:hover {
+    background: var(--danger);
+    color: var(--bg-primary);
+  }
+
+  .form-container {
+    margin-top: 2rem;
+  }
+
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+
+  .form-group label {
+    display: block;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    background: var(--bg-primary);
+    border: 2px solid var(--border);
+    color: var(--text-primary);
+    padding: 0.75rem;
+    font-family: 'Courier New', monospace;
+  }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    outline: none;
+    box-shadow: 0 0 15px var(--glow);
+  }
+
+  .output-box {
+    margin-top: 2rem;
+    padding: 1rem;
+    background: var(--bg-primary);
+    border: 2px solid var(--accent);
+  }
+
+  .success-msg {
+    color: var(--accent);
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+
+  .code-output {
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border);
+    padding: 1rem;
+    max-height: 400px;
+    overflow-y: auto;
+    color: var(--text-primary);
+    font-size: 0.9rem;
+    margin: 1rem 0;
+  }
+
+  @media (max-width: 768px) {
+    .ascii-art {
+      font-size: 0.4rem;
+    }
+
+    .admin-menu {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  // Set your admin password here
+  const ADMIN_PASSWORD = 'darksec2024';
+
+  // Login handling
+  const loginForm = document.getElementById('login-form');
+  const loginScreen = document.getElementById('login-screen');
+  const adminDashboard = document.getElementById('admin-dashboard');
+  const loginError = document.getElementById('login-error');
+
+  // Check if already logged in
+  if (sessionStorage.getItem('admin_logged_in') === 'true') {
+    loginScreen.style.display = 'none';
+    adminDashboard.style.display = 'block';
+  }
+
+  loginForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const password = document.getElementById('password').value;
+
+    if (password === ADMIN_PASSWORD) {
+      sessionStorage.setItem('admin_logged_in', 'true');
+      loginScreen.style.display = 'none';
+      adminDashboard.style.display = 'block';
+    } else {
+      loginError.textContent = 'ACCESS DENIED. INVALID CREDENTIALS.';
+      loginError.classList.add('show');
+      document.getElementById('password').value = '';
+    }
+  });
+
+  // Logout
+  document.getElementById('logout-btn').addEventListener('click', () => {
+    sessionStorage.removeItem('admin_logged_in');
+    location.reload();
+  });
+
+  // Menu navigation
+  document.querySelectorAll('.menu-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const action = e.currentTarget.dataset.action;
+      if (action === 'new-blog') {
+        document.getElementById('blog-form').style.display = 'block';
+        document.getElementById('tool-form').style.display = 'none';
+      } else if (action === 'new-tool') {
+        document.getElementById('tool-form').style.display = 'block';
+        document.getElementById('blog-form').style.display = 'none';
+      }
+    });
+  });
+
+  // Close buttons
+  document.querySelectorAll('.close-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const formId = e.currentTarget.dataset.close;
+      document.getElementById(formId).style.display = 'none';
+    });
+  });
+
+  // Blog form
+  document.getElementById('create-blog-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+
+    const title = formData.get('title');
+    const description = formData.get('description');
+    const author = formData.get('author');
+    const tags = formData.get('tags').split(',').map(t => `"${t.trim()}"`).join(', ');
+    const content = formData.get('content');
+    const date = new Date().toISOString().split('T')[0];
+    const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+
+    const markdown = `---
+title: "${title}"
+description: "${description}"
+pubDate: ${date}
+author: "${author}"
+tags: [${tags}]
+---
+
+${content}`;
+
+    document.getElementById('blog-content').textContent = markdown;
+    document.getElementById('blog-output').style.display = 'block';
+    e.target.style.display = 'none';
+
+    // Download functionality
+    document.getElementById('download-blog').onclick = () => {
+      const blob = new Blob([markdown], { type: 'text/markdown' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${slug}.md`;
+      a.click();
+    };
+  });
+
+  // Tool form
+  document.getElementById('create-tool-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+
+    const name = formData.get('name');
+    const description = formData.get('description');
+    const author = formData.get('author');
+    const language = formData.get('language');
+    const category = formData.get('category');
+    const github = formData.get('github');
+    const details = formData.get('details');
+    const date = new Date().toISOString().split('T')[0];
+    const slug = name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+
+    const markdown = `---
+name: "${name}"
+description: "${description}"
+author: "${author}"
+language: "${language}"
+category: "${category}"
+github: "${github}"
+date: ${date}
+---
+
+# ${name}
+
+${details}`;
+
+    document.getElementById('tool-content').textContent = markdown;
+    document.getElementById('tool-output').style.display = 'block';
+    e.target.style.display = 'none';
+
+    // Download functionality
+    document.getElementById('download-tool').onclick = () => {
+      const blob = new Blob([markdown], { type: 'text/markdown' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${slug}.md`;
+      a.click();
+    };
+  });
+</script>

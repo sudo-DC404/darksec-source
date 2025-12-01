@@ -6,14 +6,26 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   <section class="hero">
     <div class="container">
       <div class="hero-content">
-        <h1 class="glitch" data-text="DarkSec">DarkSec</h1>
-        <p class="tagline">Elite Pentesting & Security Research</p>
+        <pre class="ascii-logo">
+██████╗  █████╗ ██████╗ ██╗  ██╗███████╗███████╗ ██████╗
+██╔══██╗██╔══██╗██╔══██╗██║ ██╔╝██╔════╝██╔════╝██╔════╝
+██║  ██║███████║██████╔╝█████╔╝ ███████╗█████╗  ██║
+██║  ██║██╔══██║██╔══██╗██╔═██╗ ╚════██║██╔══╝  ██║
+██████╔╝██║  ██║██║  ██║██║  ██╗███████║███████╗╚██████╗
+╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚══════╝ ╚═════╝
+        </pre>
+        <p class="terminal-line">> SYSTEM: <span class="status-ok">ONLINE</span></p>
+        <p class="terminal-line">> ACCESS: <span class="status-ok">GRANTED</span></p>
+        <p class="terminal-line">> MODE: <span class="status-warn">PENTESTING</span></p>
+        <p class="tagline">[ ELITE SECURITY RESEARCH & ETHICAL HACKING ]</p>
         <p class="subtitle">
-          Learn ethical hacking, explore cutting-edge tools, and master penetration testing techniques
+          &gt; Learn penetration testing techniques<br>
+          &gt; Explore security research and tools<br>
+          &gt; Master ethical hacking methodologies
         </p>
         <div class="cta-buttons">
-          <a href="/blog" class="btn btn-primary">Read Tutorials</a>
-          <a href="/tools" class="btn btn-secondary">Explore Tools</a>
+          <a href="/blog" class="btn btn-primary">[ TUTORIALS ]</a>
+          <a href="/tools" class="btn btn-secondary">[ TOOLS ]</a>
         </div>
       </div>
     </div>
@@ -58,44 +70,54 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 <style>
   .hero {
-    padding: 6rem 0;
+    padding: 4rem 0;
     text-align: center;
-    background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
-    border-bottom: 2px solid var(--accent);
+    background: var(--bg-primary);
+    border-bottom: 2px solid var(--border);
+    border-top: 2px solid var(--border);
   }
 
-  .hero-content h1 {
-    font-size: 4rem;
-    margin-bottom: 1rem;
+  .ascii-logo {
     color: var(--accent);
-    text-shadow: 0 0 20px var(--accent);
+    font-size: 0.7rem;
+    margin-bottom: 2rem;
+    text-shadow: 0 0 10px var(--glow);
+    animation: textGlow 3s ease-in-out infinite;
+    overflow-x: auto;
   }
 
-  .glitch {
-    position: relative;
-    animation: glitch 3s infinite;
+  .terminal-line {
+    color: var(--accent);
+    text-align: left;
+    max-width: 600px;
+    margin: 0.5rem auto;
+    font-family: 'Courier New', monospace;
   }
 
-  @keyframes glitch {
-    0%, 90%, 100% {
-      text-shadow: 0 0 20px var(--accent);
-    }
-    95% {
-      text-shadow: -2px 0 var(--accent), 2px 0 var(--danger);
-    }
+  .status-ok {
+    color: var(--accent);
+    font-weight: bold;
+  }
+
+  .status-warn {
+    color: var(--accent-alt);
+    font-weight: bold;
   }
 
   .tagline {
-    font-size: 1.5rem;
-    color: var(--text-primary);
-    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    color: var(--accent);
+    margin: 2rem 0 1rem;
+    font-weight: bold;
+    text-shadow: 0 0 10px var(--glow);
   }
 
   .subtitle {
-    font-size: 1.1rem;
+    font-size: 1rem;
     color: var(--text-secondary);
     max-width: 600px;
     margin: 0 auto 2rem;
+    text-align: left;
   }
 
   .cta-buttons {
@@ -107,33 +129,34 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
   .btn {
     padding: 0.875rem 2rem;
-    border-radius: 6px;
-    font-weight: 600;
+    font-weight: bold;
     transition: all 0.3s;
     display: inline-block;
+    border: 2px solid var(--border);
+    font-family: 'Courier New', monospace;
   }
 
   .btn-primary {
-    background: var(--accent);
-    color: var(--bg-primary);
+    background: transparent;
+    color: var(--accent);
   }
 
   .btn-primary:hover {
-    background: var(--accent-dark);
-    transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(0, 255, 136, 0.3);
+    background: var(--accent);
+    color: var(--bg-primary);
+    box-shadow: 0 0 20px var(--glow);
   }
 
   .btn-secondary {
     background: transparent;
     color: var(--accent);
-    border: 2px solid var(--accent);
+    border: 2px solid var(--accent-alt);
   }
 
   .btn-secondary:hover {
-    background: var(--accent);
+    background: var(--accent-alt);
     color: var(--bg-primary);
-    transform: translateY(-2px);
+    box-shadow: 0 0 20px rgba(255, 0, 255, 0.5);
   }
 
   .features {
