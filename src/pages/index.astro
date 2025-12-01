@@ -14,9 +14,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 ██████╔╝██║  ██║██║  ██║██║  ██╗███████║███████╗╚██████╗
 ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚══════╝ ╚═════╝
         </pre>
-        <p class="terminal-line">> SYSTEM: <span class="status-ok">ONLINE</span></p>
-        <p class="terminal-line">> ACCESS: <span class="status-ok">GRANTED</span></p>
-        <p class="terminal-line">> MODE: <span class="status-warn">PENTESTING</span></p>
+        <p class="terminal-line status-green">> SYSTEM: <span class="status-ok">ONLINE</span></p>
+        <p class="terminal-line status-cyan">> ACCESS: <span class="status-ok">GRANTED</span></p>
+        <p class="terminal-line status-pink">> MODE: <span class="status-warn">PENTESTING</span></p>
         <p class="tagline">[ ELITE SECURITY RESEARCH & ETHICAL HACKING ]</p>
         <p class="subtitle">
           &gt; Learn penetration testing techniques<br>
@@ -87,20 +87,32 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   }
 
   .terminal-line {
-    color: var(--accent);
     text-align: left;
     max-width: 600px;
     margin: 0.5rem auto;
     font-family: 'Courier New', monospace;
   }
 
-  .status-ok {
+  .terminal-line.status-green {
     color: var(--accent);
+    text-shadow: 0 0 8px var(--glow);
+  }
+
+  .terminal-line.status-cyan {
+    color: var(--accent-cyan);
+    text-shadow: 0 0 8px var(--glow-cyan);
+  }
+
+  .terminal-line.status-pink {
+    color: var(--accent-alt);
+    text-shadow: 0 0 8px var(--glow-pink);
+  }
+
+  .status-ok {
     font-weight: bold;
   }
 
   .status-warn {
-    color: var(--accent-alt);
     font-weight: bold;
   }
 
@@ -149,14 +161,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
   .btn-secondary {
     background: transparent;
-    color: var(--accent);
-    border: 2px solid var(--accent-alt);
+    color: var(--accent-cyan);
+    border: 2px solid var(--accent-cyan);
   }
 
   .btn-secondary:hover {
-    background: var(--accent-alt);
+    background: var(--accent-cyan);
     color: var(--bg-primary);
-    box-shadow: 0 0 20px rgba(255, 0, 255, 0.5);
+    box-shadow: 0 0 20px var(--glow-cyan);
   }
 
   .features {

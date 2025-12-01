@@ -84,10 +84,26 @@ const { title, description = "Pentesting tutorials, tools, and security research
         background: var(--bg-primary);
       }
 
-      .nav-links a:hover {
+      .nav-links a:nth-child(1) { border-color: var(--accent); color: var(--accent); }
+      .nav-links a:nth-child(2) { border-color: var(--accent-cyan); color: var(--accent-cyan); }
+      .nav-links a:nth-child(3) { border-color: var(--accent-alt); color: var(--accent-alt); }
+
+      .nav-links a:nth-child(1):hover {
         background: var(--accent);
         color: var(--bg-primary);
         box-shadow: 0 0 15px var(--glow);
+      }
+
+      .nav-links a:nth-child(2):hover {
+        background: var(--accent-cyan);
+        color: var(--bg-primary);
+        box-shadow: 0 0 15px var(--glow-cyan);
+      }
+
+      .nav-links a:nth-child(3):hover {
+        background: var(--accent-alt);
+        color: var(--bg-primary);
+        box-shadow: 0 0 15px var(--glow-pink);
       }
 
       main {

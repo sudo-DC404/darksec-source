@@ -7,9 +7,14 @@
   --accent: #00ff00;
   --accent-dark: #00aa00;
   --accent-alt: #ff00ff;
+  --accent-cyan: #00ffff;
+  --accent-amber: #ffaa00;
+  --accent-pink: #ff1493;
   --border: #00ff00;
   --danger: #ff0000;
   --glow: rgba(0, 255, 0, 0.5);
+  --glow-cyan: rgba(0, 255, 255, 0.5);
+  --glow-pink: rgba(255, 20, 147, 0.5);
 }
 
 * {

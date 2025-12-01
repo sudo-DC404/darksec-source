@@ -5,15 +5,47 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 <BaseLayout title="Admin Panel - DarkSec">
   <div class="admin-container">
     <div class="container">
+      <!-- Login Screen -->
+      <div id="login-screen" class="terminal-window">
+        <div class="terminal-header">
+          <span class="terminal-title">[DARKSEC SECURE LOGIN]</span>
+        </div>
+        <div class="terminal-body">
+          <pre class="ascii-art">
+██████╗  █████╗ ██████╗ ██╗  ██╗███████╗███████╗ ██████╗
+██╔══██╗██╔══██╗██╔══██╗██║ ██╔╝██╔════╝██╔════╝██╔════╝
+██║  ██║███████║██████╔╝█████╔╝ ███████╗█████╗  ██║
+██║  ██║██╔══██║██╔══██╗██╔═██╗ ╚════██║██╔══╝  ██║
+██████╔╝██║  ██║██║  ██║██║  ██╗███████║███████╗╚██████╗
+╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚══════╝ ╚═════╝
+          </pre>
+          <p class="terminal-prompt">ADMIN ACCESS CONTROL SYSTEM v3.0</p>
+          <p class="terminal-prompt">Enter credentials to proceed...</p>
+
+          <form id="login-form">
+            <div class="input-group">
+              <label for="username">&gt; USERNAME:</label>
+              <input type="text" id="username" name="username" autocomplete="off" required>
+            </div>
+            <div class="input-group">
+              <label for="password">&gt; PASSWORD:</label>
+              <input type="password" id="password" name="password" autocomplete="off" required>
+            </div>
+            <button type="submit" class="terminal-btn">[ ACCESS ]</button>
+          </form>
+          <p id="login-error" class="error-msg"></p>
+        </div>
+      </div>
+
       <!-- Admin Dashboard -->
-      <div id="admin-dashboard">
+      <div id="admin-dashboard" style="display: none;">
         <div class="terminal-window">
           <div class="terminal-header">
-            <span class="terminal-title">[DARKSEC ADMIN PANEL - PROTECTED BY CLOUDFLARE ACCESS]</span>
+            <span class="terminal-title">[DARKSEC ADMIN PANEL]</span>
+            <button id="logout-btn" class="logout-btn">[ LOGOUT ]</button>
           </div>
           <div class="terminal-body">
-            <p class="terminal-prompt">ACCESS GRANTED. WELCOME, ADMIN.</p>
-            <p class="terminal-prompt">This panel is protected by enterprise-grade authentication.</p>
+            <p class="terminal-prompt">ACCESS GRANTED. WELCOME, <span id="username-display"></span>.</p>
             <p class="terminal-prompt">SELECT OPERATION:</p>
 
             <div class="admin-menu">
@@ -349,7 +381,50 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 </style>
 
 <script>
-  // Protected by Cloudflare Access - no client-side auth needed
+  // Admin credentials
+  const ADMIN_USERNAME = 'darksecscooter';
+  const ADMIN_PASSWORD = 'thatsabigbitch';
+
+  // Login handling
+  const loginForm = document.getElementById('login-form');
+  const loginScreen = document.getElementById('login-screen');
+  const adminDashboard = document.getElementById('admin-dashboard');
+  const loginError = document.getElementById('login-error');
+  const usernameDisplay = document.getElementById('username-display');
+
+  // Check if already logged in
+  if (sessionStorage.getItem('admin_logged_in') === 'true') {
+    const savedUsername = sessionStorage.getItem('admin_username');
+    loginScreen.style.display = 'none';
+    adminDashboard.style.display = 'block';
+    usernameDisplay.textContent = savedUsername || 'ADMIN';
+  }
+
+  loginForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+
+    if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
+      sessionStorage.setItem('admin_logged_in', 'true');
+      sessionStorage.setItem('admin_username', username.toUpperCase());
+      loginScreen.style.display = 'none';
+      adminDashboard.style.display = 'block';
+      usernameDisplay.textContent = username.toUpperCase();
+    } else {
+      loginError.textContent = 'ACCESS DENIED. INVALID CREDENTIALS.';
+      loginError.classList.add('show');
+      document.getElementById('username').value = '';
+      document.getElementById('password').value = '';
+    }
+  });
+
+  // Logout
+  document.getElementById('logout-btn').addEventListener('click', () => {
+    sessionStorage.removeItem('admin_logged_in');
+    sessionStorage.removeItem('admin_username');
+    location.reload();
+  });
 
   // Menu navigation
   document.querySelectorAll('.menu-btn').forEach(btn => {
